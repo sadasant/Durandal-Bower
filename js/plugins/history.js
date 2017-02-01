@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Durandal 2.2.0 Copyright (c) 2010-2016 Blue Spire Consulting, Inc. All Rights Reserved.
  * Available via the MIT license.
  * see: http://durandaljs.com or https://github.com/BlueSpire/Durandal for details.
@@ -186,18 +186,20 @@ define(['durandal/system', 'jquery'], function (system, $) {
      */
     history.checkUrl = function() {
         var current = history.getFragment();
-        if (current === history.fragment && history.iframe) {
+        var currentIsFragment = decodeURIComponent(current) === decodeURIComponent(history.fragment);
+
+        if (currentIsFragment && history.iframe) {
             current = history.getFragment(history.getHash(history.iframe));
         }
 
-        if (current === history.fragment) {
+        if (currentIsFragment) {
             return false;
         }
 
         if (history.iframe) {
             history.navigate(current, false);
         }
-        
+
         history.loadUrl();
     };
     
